@@ -57,15 +57,26 @@ with st.container():
     # 그래프 아래 설명 문구 자리
     st.info("💡 이 그래프로 알 수 있는 것: (개봉 후 관객수가 어떻게 변화하고 언제 가장 많았는지 적어보세요)")
 
-# 5. 기타 추가 그래프를 위한 구역 (두 번째 구역)
+# 5. 영역 차트 그리기 (두 번째 구역 추가)
 st.divider()
 with st.container():
-    st.subheader("📊 2. (추가할 그래프 제목)")
-    st.write("여기에 앞으로 새로운 그래프와 코드를 추가하세요.")
+    st.subheader(f"📊 2. {selected_movie} - 누적 관객수 변화")
     
-    # 향후 그래프가 들어갈 빈 자리 (예시)
-    # fig2 = px.bar(...) 
-    # st.plotly_chart(fig2)
+    # Plotly를 사용해 영역 차트 생성
+    fig2 = px.area(
+        filtered_df,
+        x='기준일자',
+        y='누적관객수',
+        title=f"{selected_movie} 누적 관객수 추이"
+    )
+    # Streamlit 화면에 그래프 출력
+    st.plotly_chart(fig2, use_container_width=True)
     
     # 그래프 아래 설명 문구 자리
-    st.info("💡 이 그래프로 알 수 있는 것: (새로운 그래프에 대한 분석을 한 문장으로 적어보세요)")
+    st.info("💡 이 그래프로 알 수 있는 것: (시간이 지남에 따라 총관객수가 어떻게 쌓여가는지, 관객 증가세가 언제 꺾이는지 적어보세요)")
+
+# 6. 향후 추가를 위한 빈 구역 (세 번째 구역)
+st.divider()
+with st.container():
+    st.subheader("📌 3. (추가할 그래프 제목)")
+    st.write("여기에 앞으로 새로운 그래프와 코드를 추가할 수 있습니다.")
