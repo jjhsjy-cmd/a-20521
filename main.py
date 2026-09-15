@@ -56,3 +56,30 @@ st.info(
 )
 
 st.divider()
+
+# ----------------------------------------------------
+# 2. 장르 및 영화별 총 관객 수 (트리맵)
+# ----------------------------------------------------
+st.subheader("2. 장르 및 영화별 총 관객 수 분포")
+
+fig2 = px.treemap(
+    df,
+    path=[px.Constant("전체 영화"), "genre", "movieNm"],
+    values="total_audi",
+    title="장르 및 영화별 총 관객 수 (크기: 총 관객 수)",
+)
+
+# 마우스 호버 시 영화명(또는 장르명)과 총 관객 수가 보이도록 설정
+fig2.update_traces(
+    hovertemplate="<b>%{label}</b><br>총 관객 수: %{value:,.0f}명<extra></extra>"
+)
+
+st.plotly_chart(fig2, use_container_width=True)
+
+# 그래프 해석 및 구역 분리
+st.markdown("#### 💡 이 그래프로 알 수 있는 것")
+st.info(
+    "장르 내부에서도 특정 초대형 흥행작 몇 편이 전체 관객 수의 상당 부분을 차지하는 양극화 현상을 확인할 수 있습니다."
+)
+
+st.divider()
