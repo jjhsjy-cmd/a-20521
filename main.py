@@ -255,25 +255,27 @@ st.info(
 st.divider()
 
 # ----------------------------------------------------
-# 8. 10위권 체류 날수와 총 관객 수 (산점도)
+# 8. TOP 10에 오래 버틴 영화가 무조건 총 관객 수가 많을까 (산점도)
 # ----------------------------------------------------
-st.subheader("8. 10위권에 오래 머문 영화는 총 관객도 많은가")
+st.subheader("8. TOP 10에 오래 버틴 영화가 무조건 총 관객 수가 많을까?")
 
 fig8 = px.scatter(
     df,
     x="days_in_top10",
     y="total_audi",
+    color="genre",
     hover_name="movieNm",
-    title="10위권에 오래 머문 영화는 총 관객도 많은가",
+    title="TOP 10에 오래 버틴 영화가 무조건 총 관객 수가 많을까?",
     labels={
-        "days_in_top10": "10위권에 머문 날수",
+        "days_in_top10": "10위권 체류 일수(일)",
         "total_audi": "총 관객 수",
+        "genre": "장르",
     },
 )
 
-# 마우스 호버 시 영화명, 체류 날수, 총 관객 수가 표시되도록 설정
+# 마우스 호버 시 영화명, 체류 일수, 총 관객 수가 보이도록 설정
 fig8.update_traces(
-    hovertemplate="<b>%{hovertext}</b><br>10위권 머문 날수: %{x}일<br>총 관객 수: %{y:,.0f}명<extra></extra>"
+    hovertemplate="<b>%{hovertext}</b><br>10위권 체류 일수: %{x}일<br>총 관객 수: %{y:,.0f}명<extra></extra>"
 )
 
 st.plotly_chart(fig8, use_container_width=True)
@@ -281,7 +283,7 @@ st.plotly_chart(fig8, use_container_width=True)
 # 그래프 해석 및 구역 분리
 st.markdown("#### 💡 이 그래프로 알 수 있는 것")
 st.info(
-    "10위권에 오랜 기간 머무른 영화일수록 총 관객 수가 대체로 높아지므로, 박스오피스 상위권 유지 기간과 흥행 규모 간에는 강한 양의 상관관계가 존재함을 알 수 있습니다."
+    "10위권 체류 일수가 길수록 대체로 총 관객 수가 증가하지만, 상위권 유지 기간이 짧더라도 단기간에 관객을 폭발적으로 모은 대작이나, 장기 집권했으나 일일 관객 수는 적었던 소규모 강소 영화 등 다양한 유형이 존재함을 보여줍니다."
 )
 
 st.divider()
